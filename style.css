@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;700;800&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Kanit', sans-serif;
+    background: transparent; /* เปลี่ยนเป็น transparent เมื่อนำไปลงในเซิร์ฟเวอร์ */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    user-select: none;
+}
+
+#farm-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px; /* ระยะห่างระหว่างกล่องบนกับปุ่มล่าง */
+    width: 320px;
+}
+
+/* กล่อง UI หลัก */
+.card-main {
+    width: 100%;
+    background-color: rgba(23, 22, 28, 0.95);
+    border-left: 4px solid #ff1a40;   /* เปลี่ยนเป็นสีแดง */
+    border-right: 4px solid #ff1a40;  /* เปลี่ยนเป็นสีแดง */
+    border-bottom: 4px solid #ff1a40; /* เปลี่ยนเป็นสีแดง */
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+}
+
+/* แถบหัวข้อด้านบน */
+.card-header {
+    background-color: #1a191f;
+    padding: 14px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+
+.item-title {
+    color: #ff1a40; /* อักษรสีแดง */
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-shadow: 0 0 12px rgba(255, 26, 64, 0.6); /* อักษรเรืองแสงสีแดง */
+}
+
+.diamond-icon {
+    color: #ffffff;
+    font-size: 16px;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8); /* ข้าวหลามตัดเรืองแสงสีขาว */
+}
+
+/* พื้นที่ด้านในกล่อง */
+.card-body {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* ช่องใส่รูปภาพ */
+.image-slot {
+    width: 100%;
+    height: 160px;
+    background-color: #121116;
+    border: 2px solid #282730;
+    border-radius: 6px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* แสงสีขาวเรืองแสงหลังรูปเนื้อ */
+.glow-bg {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 70%);
+    z-index: 1;
+}
+
+.item-image {
+    width: 105px;
+    height: auto;
+    z-index: 2;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
+}
+
+/* ข้อความ "จำนวน" */
+.amount-label {
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 500;
+    margin-top: 12px;
+    margin-bottom: 8px;
+}
+
+/* กล่องครอบตัวเลข 40 / 40 */
+.count-container {
+    width: 100%;
+    background-color: #121116;
+    border: 2px solid #25242c;
+    border-radius: 8px;
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    font-size: 54px;
+    font-weight: 800;
+    color: #ff1a40; /* ตัวเลขสีแดง */
+}
+
+.divider {
+    color: #ffffff;
+    font-size: 42px;
+    font-weight: 400;
+    margin-bottom: 4px;
+}
+
+/* ปุ่มแจ้งเตือนด้านล่าง */
+.footer-button {
+    width: 100%;
+    background-color: #ff1a40; /* พื้นหลังปุ่มสีแดงสด */
+    color: #0d0d11; /* ตัวอักษรสีดำเข้ม */
+    font-size: 18px;
+    font-weight: 800;
+    text-align: center;
+    padding: 12px 0;
+    border-radius: 6px;
+    box-shadow: 0 6px 20px rgba(255, 26, 64, 0.3);
+}
+
+.key-trigger {
+    color: #ffffff; /* ตัวอักษรปุ่ม N เป็นสีขาวเด่น */
+    margin: 0 2px;
+}
