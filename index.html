@@ -3,39 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auto Farm UI</title>
+    <title>Auto Farm - Carrot</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="farm-container">
-        <div class="card-main">
-            <div class="card-header">
-                <span class="diamond-icon">◆</span>
-                <span class="item-title">CARROT</span>
-                <span class="diamond-icon">◆</span>
+    <!-- Main Farm UI Panel -->
+    <div id="farm-panel" class="farm-panel">
+        <div class="panel-inner">
+            <!-- Title -->
+            <div class="title-row">
+                <span class="diamond">◆</span>
+                <span class="title-text">CARROT</span>
+                <span class="diamond">◆</span>
             </div>
-            
-            <div class="card-body">
-                <div class="image-slot">
-                    <div class="glow-bg"></div>
-                    <img src="https://i.postimg.cc/YSksPHS5/9332087.png" alt="Item Image" class="item-image">
-                </div>
-                
-                <div class="amount-label">จำนวน</div>
-                
-                <div class="count-container">
+
+            <!-- Carrot Image -->
+            <div class="carrot-container">
+                <div class="carrot-glow"></div>
+                <img id="carrot-img" src="carrot.png" alt="Carrot" class="carrot-img" />
+            </div>
+
+            <!-- Counter -->
+            <div class="counter-section">
+                <div class="counter-label">จำนวน</div>
+                <div class="counter-value">
                     <span id="current-count">0</span>
-                    <span class="divider">/</span>
+                    <span class="counter-separator">/</span>
                     <span id="max-count">60</span>
                 </div>
             </div>
+
+            <!-- Progress Bar -->
+            <div class="progress-bar-container">
+                <div id="progress-bar" class="progress-bar" style="width: 0%"></div>
+            </div>
+
+            <!-- Status -->
+            <div id="status-text" class="status-text">พร้อมเริ่มฟาร์ม</div>
         </div>
 
-        <div class="footer-button">
-            กด <span class="key-trigger">N</span> เพื่อเริ่มฟาร์มออโต้
+        <!-- Bottom Bar -->
+        <div class="bottom-bar">
+            <span>กด</span>
+            <span class="key-badge">N</span>
+            <span id="action-text">เพื่อเริ่มฟาร์มออโต้</span>
         </div>
     </div>
 
+    <!-- Notification Toast -->
+    <div id="toast" class="toast hidden">
+        <span id="toast-text"></span>
+    </div>
+
+    <script src="config.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
