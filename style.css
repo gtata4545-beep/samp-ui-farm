@@ -1,110 +1,504 @@
-/* คอนเทนเนอร์หลักของ UI */
-#farm-container {
-    display: block !important;       /* บังคับแสดงผลในรูปแบบ Block */
-    visibility: visible !important; /* บังคับให้มองเห็น */
-    opacity: 1 !important;          /* บังคับความโปร่งแสงเป็น 100% (ไม่จางหาย) */
-    
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-family: 'Arial', sans-serif;
-    z-index: 9999;
+/* ==========================================
+   SA-MP CEF Auto Farm - Carrot UI
+   ========================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
 }
 
-/* ลบคลาส ui-hidden ออกจากระบบ CSS ไปเลยเพื่อตัดปัญหา */
-.ui-hidden {
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
+body {
+    font-family: 'Kanit', sans-serif;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
 }
 
-/* ส่วนตกแต่งพื้นฐานของการ์ด (ปรับแต่งสีสันตามสไตล์ WarZ/แซมป์ของคุณ) */
-.card-main {
-    background: rgba(15, 15, 15, 0.95);
-    border: 2px solid #ff9900; /* ขอบสีส้มทอง */
-    border-radius: 8px;
-    padding: 20px;
-    width: 280px;
-    text-align: center;
-    box-shadow: 0 0 20px rgba(255, 153, 0, 0.3);
-}
+/* ==========================================
+   Main Panel
+   ========================================== */
 
-.card-header {
-    font-size: 20px;
-    color: #ff9900;
-    font-weight: bold;
-    margin-bottom: 15px;
-    letter-spacing: 2px;
-}
-
-.diamond-icon {
-    font-size: 14px;
-    margin: 0 8px;
-    vertical-align: middle;
-}
-
-.image-slot {
+.farm-panel {
+    width: 380px;
+    background: #1a1a1a;
+    border-radius: 16px;
+    border: 2.5px solid #e63946;
+    box-shadow:
+        0 0 30px rgba(230, 57, 70, 0.25),
+        0 0 60px rgba(230, 57, 70, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    overflow: hidden;
+    animation: panelAppear 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     position: relative;
-    width: 100px;
-    height: 100px;
-    margin: 0 auto 15px auto;
-    background: rgba(0, 0, 0, 0.5);
-    border: 1px solid rgba(255, 153, 0, 0.2);
-    border-radius: 4px;
+}
+
+.farm-panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(230, 57, 70, 0.6), transparent);
+}
+
+@keyframes panelAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.panel-inner {
+    padding: 28px 30px 20px;
+}
+
+/* ==========================================
+   Title
+   ========================================== */
+
+.title-row {
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 12px;
+    margin-bottom: 22px;
 }
 
-.glow-bg {
-    position: absolute;
-    width: 80px;
-    height: 80px;
-    background: radial-gradient(circle, rgba(255,153,0,0.2) 0%, rgba(0,0,0,0) 70%);
+.diamond {
+    color: #e63946;
+    font-size: 14px;
+    animation: diamondPulse 2s ease-in-out infinite;
 }
 
-.item-image {
-    width: 80px;
-    height: 80px;
-    object-fit: contain;
-    z-index: 2;
+.diamond:last-child {
+    animation-delay: 1s;
 }
 
-.amount-label {
-    color: #888;
-    font-size: 12px;
-    margin-bottom: 5px;
+@keyframes diamondPulse {
+    0%, 100% { opacity: 0.5; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); }
 }
 
-.count-container {
+.title-text {
     font-size: 28px;
-    color: #fff;
-    font-weight: bold;
+    font-weight: 900;
+    color: #e63946;
+    letter-spacing: 8px;
+    text-shadow:
+        0 0 10px rgba(230, 57, 70, 0.5),
+        0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-.divider {
-    color: #ff9900;
-    margin: 0 5px;
+/* ==========================================
+   Carrot Image
+   ========================================== */
+
+.carrot-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 18px;
+    position: relative;
 }
 
-.footer-button {
-    margin-top: 15px;
-    background: rgba(0, 0, 0, 0.8);
-    border: 1px solid #ff9900;
-    color: #fff;
-    padding: 8px 15px;
-    border-radius: 4px;
-    font-size: 13px;
+.carrot-glow {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle, rgba(230, 57, 70, 0.15) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: glowPulse 3s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.3); opacity: 1; }
+}
+
+.carrot-img {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    border-radius: 12px;
+    background: transparent;
+    border: none;
+    padding: 8px;
+    position: relative;
+    z-index: 1;
+    transition: all 0.3s ease;
+}
+
+.carrot-img:hover {
+    transform: scale(1.1) rotate(5deg);
+    border-color: transparent;
+}
+
+.carrot-img.farming {
+    animation: carrotFarming 1.8s ease-in-out infinite;
+}
+
+@keyframes carrotFarming {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-10px) rotate(-8deg); }
+    50% { transform: translateY(0) rotate(0deg) scale(1.05); }
+    75% { transform: translateY(-6px) rotate(8deg); }
+}
+
+.carrot-img.complete {
+    animation: carrotComplete 0.8s ease-in-out;
+    border-color: #4caf50;
+}
+
+@keyframes carrotComplete {
+    0% { transform: scale(1); }
+    25% { transform: scale(1.2) rotate(10deg); }
+    50% { transform: scale(0.9) rotate(-10deg); }
+    75% { transform: scale(1.1) rotate(5deg); }
+    100% { transform: scale(1) rotate(0deg); }
+}
+
+/* ==========================================
+   Counter
+   ========================================== */
+
+.counter-section {
     text-align: center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    margin-bottom: 16px;
 }
 
-.key-trigger {
-    color: #ff9900;
-    font-weight: bold;
-    background: rgba(255, 153, 0, 0.1);
-    padding: 2px 6px;
+.counter-label {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 4px;
+    letter-spacing: 2px;
+}
+
+.counter-value {
+    font-size: 42px;
+    font-weight: 900;
+    color: #ffffff;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    line-height: 1;
+}
+
+.counter-separator {
+    color: #555;
+    margin: 0 4px;
+}
+
+#current-count {
+    color: #e63946;
+    transition: all 0.3s ease;
+}
+
+#current-count.pulse {
+    animation: countPulse 0.4s ease-out;
+}
+
+@keyframes countPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); color: #ffcc00; }
+    100% { transform: scale(1); }
+}
+
+/* ==========================================
+   Progress Bar
+   ========================================== */
+
+.progress-bar-container {
+    width: 100%;
+    height: 6px;
+    background: #2a2a2a;
     border-radius: 3px;
-    border: 1px solid rgba(255, 153, 0, 0.3);
+    overflow: hidden;
+    margin-bottom: 18px;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #e63946, #ff4d5a, #ff6b6b);
+    border-radius: 3px;
+    transition: width 0.4s ease;
+    position: relative;
+}
+
+.progress-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    animation: progressShine 2s linear infinite;
+}
+
+@keyframes progressShine {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(100%); }
+}
+
+/* ==========================================
+   Settings Panel
+   ========================================== */
+
+.settings-panel {
+    background: #111;
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 14px;
+    border: 1px solid #2a2a2a;
+}
+
+.setting-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 0;
+}
+
+.setting-row:first-child {
+    margin-bottom: 8px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #222;
+}
+
+.setting-label {
+    font-size: 13px;
+    color: #aaa;
+    font-weight: 400;
+}
+
+.setting-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-adjust {
+    width: 30px;
+    height: 30px;
+    background: #2a2a2a;
+    border: 1px solid #444;
+    border-radius: 6px;
+    color: #e63946;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    font-family: 'Kanit', sans-serif;
+}
+
+.btn-adjust:hover {
+    background: #e63946;
+    color: #fff;
+    border-color: #e63946;
+    transform: scale(1.1);
+}
+
+.btn-adjust:active {
+    transform: scale(0.95);
+}
+
+.setting-value {
+    font-size: 18px;
+    font-weight: 700;
+    color: #ff6b6b;
+    min-width: 30px;
+    text-align: center;
+}
+
+/* ==========================================
+   Status Text
+   ========================================== */
+
+.status-text {
+    text-align: center;
+    font-size: 13px;
+    color: #666;
+    padding: 6px 0;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+.status-text.active {
+    color: #4caf50;
+    text-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
+}
+
+.status-text.complete {
+    color: #e63946;
+    text-shadow: 0 0 10px rgba(230, 57, 70, 0.3);
+    animation: statusGlow 1s ease-in-out infinite;
+}
+
+@keyframes statusGlow {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+}
+
+/* ==========================================
+   Bottom Bar
+   ========================================== */
+
+.bottom-bar {
+    background: #2a2a2a;
+    padding: 14px 20px;
+    text-align: center;
+    font-size: 15px;
+    color: #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-top: 1px solid #333;
+    font-weight: 400;
+}
+
+.key-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(180deg, #e63946, #b71c1c);
+    color: #fff;
+    font-weight: 900;
+    font-size: 14px;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    box-shadow:
+        0 2px 4px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    animation: keyBadgePulse 2.5s ease-in-out infinite;
+}
+
+@keyframes keyBadgePulse {
+    0%, 100% { transform: scale(1); box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
+    50% { transform: scale(1.08); box-shadow: 0 2px 12px rgba(230, 57, 70, 0.5); }
+}
+
+/* ==========================================
+   Toast Notification
+   ========================================== */
+
+.toast {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-100%);
+    background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+    border: 1.5px solid #e63946;
+    border-radius: 10px;
+    padding: 12px 24px;
+    color: #fff;
+    font-family: 'Kanit', sans-serif;
+    font-size: 14px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 20px rgba(230, 57, 70, 0.2);
+    z-index: 1000;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+    opacity: 0;
+}
+
+.toast.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+
+.toast.hidden {
+    transform: translateX(-50%) translateY(-100%);
+    opacity: 0;
+}
+
+/* ==========================================
+   Particles (Harvest Effect)
+   ========================================== */
+
+.particle {
+    position: absolute;
+    pointer-events: none;
+    z-index: 10;
+    animation: particleFly 1s ease-out forwards;
+}
+
+@keyframes particleFly {
+    0% {
+        opacity: 1;
+        transform: translate(0, 0) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(var(--tx), var(--ty)) scale(0.3);
+    }
+}
+
+/* ==========================================
+   Panel State: Farming Active
+   ========================================== */
+
+.farm-panel.farming {
+    border-color: #4caf50;
+    box-shadow:
+        0 0 30px rgba(76, 175, 80, 0.25),
+        0 0 60px rgba(76, 175, 80, 0.1);
+}
+
+.farm-panel.farming .bottom-bar {
+    background: #1b3a1b;
+}
+
+.farm-panel.farming .key-badge {
+    background: linear-gradient(180deg, #4caf50, #2e7d32);
+}
+
+.farm-panel.farming .progress-bar {
+    background: linear-gradient(90deg, #4caf50, #66bb6a, #81c784);
+}
+
+/* ==========================================
+   Panel State: Complete
+   ========================================== */
+
+.farm-panel.complete {
+    border-color: #ff1744;
+    box-shadow:
+        0 0 30px rgba(255, 23, 68, 0.3),
+        0 0 60px rgba(255, 23, 68, 0.15);
+    animation: panelComplete 0.5s ease-in-out;
+}
+
+@keyframes panelComplete {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+}
+
+/* ==========================================
+   Responsive (for preview)
+   ========================================== */
+
+@media (max-width: 420px) {
+    .farm-panel {
+        width: 340px;
+    }
+
+    .title-text {
+        font-size: 22px;
+        letter-spacing: 6px;
+    }
+
+    .counter-value {
+        font-size: 36px;
+    }
 }
